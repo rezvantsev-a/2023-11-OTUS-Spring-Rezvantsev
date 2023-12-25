@@ -36,9 +36,12 @@ class CsvQuestionDaoTest {
 
         List<Question> actual = dao.findAll();
 
+        var expected = new Question("Is Santa real?",
+                List.of(new Answer("No", true), new Answer("Yes", false)));
+
         assertThat(actual)
                 .isNotEmpty()
-                .containsExactly(new Question("Is Santa real?", List.of(new Answer("No", true), new Answer("Yes", false))));
+                .containsExactly(expected);
 
         verify(fileNameProvider, only()).getTestFileName();
     }
