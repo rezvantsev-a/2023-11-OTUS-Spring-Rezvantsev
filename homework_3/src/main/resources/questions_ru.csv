@@ -1,0 +1,9 @@
+# Добавить сюда своих вопросов. Эту строку надо пропустить при настройке CsvToBean (withSkipLines)
+Есть ли жизнь на Марсе?;Это науке пока не известно%true|Конечно. Красные (НЛО) это с Марса. А зеленые (НЛО) с Венеры%false|Точно нет%false
+Как нужно загружать ресурс из jar в Java?;ClassLoader#geResourceAsStream или ClassPathResource#getInputStream%true|ClassLoader#geResource#getFile + FileReader%false|Wingardium Leviosa%false
+Какой предпочтительный способ реакции на исключения?;@SneakyThrow%false|e.printStackTrace()%false|Проброс дальше с предварительным оборачиванием в бизнес-исключение (например, QuestionReadException)%true|Игнорирование исключения%false
+"Укажите корректный синтаксис для вывода ""Hello World"" на языке Java?";"System.out.println(""Hello World"");%true|Console.WriteLine(""Hello World"");%false|echo(""Hello World"");%false|print (""Hello World"");%false"
+"Как обозначается комментарий в Java-коде?";"// This is a comment%true|# This is a comment%false|-- This is a comment%false|/* This is a comment%false"
+"Какой тип данных используется для хранения текста?";"String%true|Txt%false|string%false|myString%false"
+"Как создать переменную с целочисленным значением 5?";"int x = 5;%true|num x = 5;%false|x = 5;%false|float x = 5;%false"
+"Как создать переменную для хранения числа 2.8?";"float x = 2.8f;%true|int x = 2.8f;%false|byte x = 2.8f;%false|x = 2.8f;%false"
