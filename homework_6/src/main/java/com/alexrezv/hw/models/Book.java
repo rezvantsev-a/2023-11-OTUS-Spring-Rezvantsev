@@ -17,6 +17,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.Fetch;
@@ -45,10 +46,14 @@ public class Book {
     @Column(name = "title")
     private String title;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToOne(targetEntity = Author.class, fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "author_id", referencedColumnName = "id")
     private Author author;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @Fetch(FetchMode.SUBSELECT)
     @ManyToMany(targetEntity = Genre.class, fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinTable(name = "books_genres", joinColumns = @JoinColumn(name = "book_id"),
@@ -56,6 +61,7 @@ public class Book {
     private List<Genre> genres;
 
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @OneToMany(targetEntity = Comment.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "book_id")
     private List<Comment> comments;

@@ -9,7 +9,9 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @AllArgsConstructor
@@ -29,6 +31,8 @@ public class Comment {
     @Column(name = "content")
     private String content;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @ManyToOne(targetEntity = Book.class)
     private Book book;
 
