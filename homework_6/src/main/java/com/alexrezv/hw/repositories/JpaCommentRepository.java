@@ -29,39 +29,21 @@ public class JpaCommentRepository implements CommentRepository {
 
     @Override
     public void updateContentById(long id, String content) {
-        var query = """
-                update Comment c
-                set c.content = :content
-                where c.id = :id
-                """;
-        em.createQuery(query)
-                .setParameter("content", content)
-                .setParameter("id", id)
-                .executeUpdate();
+        var comment = em.find(Comment.class, id);
+        comment.setContent(content);
+        em.persist(comment);
     }
 
     @Override
     public void deleteById(long id) {
-        var query = """
-                delete from Comment c
-                where c.id = :id
-                """;
-        em.createQuery(query)
-                .setParameter("id", id)
-                .executeUpdate();
+        var comment = em.find(Comment.class, id);
+        em.remove(comment);
+        em.flush();
     }
 
     @Override
     public Optional<Comment> findById(long id) {
-        var query = """
-                select c from Comment c
-                join fetch c.book
-                where c.id = :id
-                """;
-        Comment result = em.createQuery(query, Comment.class)
-                .setParameter("id", id)
-                .getSingleResult();
-        return Optional.ofNullable(result);
+        return Optional.ofNullable(em.find(Comment.class, id));
     }
 
     @Override

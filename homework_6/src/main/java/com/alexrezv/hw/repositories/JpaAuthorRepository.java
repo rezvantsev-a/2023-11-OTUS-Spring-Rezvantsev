@@ -26,10 +26,7 @@ public class JpaAuthorRepository implements AuthorRepository {
 
     @Override
     public Optional<Author> findById(long id) {
-        Author result = em.createQuery("select a from Author a where a.id = :id", Author.class)
-                .setParameter("id", id)
-                .getSingleResult();
-        return Optional.ofNullable(result);
+        return Optional.ofNullable(em.find(Author.class, id));
     }
 
 }
