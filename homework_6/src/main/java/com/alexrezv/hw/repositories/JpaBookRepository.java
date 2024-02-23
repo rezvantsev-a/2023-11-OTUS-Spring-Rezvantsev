@@ -23,24 +23,20 @@ public class JpaBookRepository implements BookRepository {
     public Optional<Book> findById(long id) {
         var query = """
                 select b from Book b
-                left join fetch b.comments
                 where b.id = :id
                 """;
         var result = em.createQuery(query, Book.class)
                 .setHint(GraphSemantic.FETCH.getJakartaHintName(), em.getEntityGraph(Book.ENTITY_GRAPH_AUTHOR))
                 .setParameter("id", id)
-                .getSingleResult();
+                .getResultList().stream()
+                .findFirst();
 
-        return Optional.ofNullable(result);
+        return result;
     }
 
     @Override
     public List<Book> findAll() {
-        var query = """
-                select b from Book b
-                left join fetch b.comments
-                """;
-        return em.createQuery(query, Book.class)
+        return em.createQuery("select b from Book b", Book.class)
                 .setHint(GraphSemantic.FETCH.getJakartaHintName(), em.getEntityGraph(Book.ENTITY_GRAPH_AUTHOR))
                 .getResultList();
     }

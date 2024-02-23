@@ -4,6 +4,7 @@ import com.alexrezv.hw.models.Genre;
 import com.alexrezv.hw.repositories.GenreRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ import java.util.List;
 public class GenreServiceImpl implements GenreService {
     private final GenreRepository genreRepository;
 
+    @Transactional(readOnly = true)
     @Override
     public List<Genre> findAll() {
         return genreRepository.findAll();

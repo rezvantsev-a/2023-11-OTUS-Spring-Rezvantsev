@@ -50,7 +50,6 @@ public class JpaCommentRepository implements CommentRepository {
     public List<Comment> findByBookId(long bookId) {
         var query = """
                 select c from Comment c
-                join fetch c.book
                 where c.book.id = :bookId
                 """;
         return em.createQuery(query, Comment.class)

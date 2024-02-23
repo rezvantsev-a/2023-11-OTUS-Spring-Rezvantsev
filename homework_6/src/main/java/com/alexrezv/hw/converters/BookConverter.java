@@ -15,8 +15,6 @@ import static java.util.stream.Collectors.joining;
 public class BookConverter {
     private final AuthorConverter authorConverter;
 
-    private final CommentConverter commentConverter;
-
     private final GenreConverter genreConverter;
 
     public String bookToString(Book book) {
@@ -24,24 +22,20 @@ public class BookConverter {
     }
 
     public String bookToString(BookDto book) {
-        return "Id: %d, title: %s, author: {%s}, genres: [%s], comments: [%s]".formatted(
+        return "Id: %d, title: %s, author: {%s}, genres: [%s]".formatted(
                 book.getId(),
                 book.getTitle(),
                 authorConverter.authorToString(book.getAuthor()),
-                collectionToString(book.getGenres(), genreConverter::genreToString),
-                collectionToString(book.getComments(), commentConverter::commentToString));
+                collectionToString(book.getGenres(), genreConverter::genreToString));
     }
 
     public BookDto bookToDto(Book book) {
         var author = authorConverter.authorToDto(book.getAuthor());
-        var comments = book.getComments().stream()
-                .map(commentConverter::commentToDto)
-                .toList();
         var genres = book.getGenres().stream()
                 .map(genreConverter::genreToDto)
                 .toList();
 
-        return new BookDto(book.getId(), book.getTitle(), author, genres, comments);
+        return new BookDto(book.getId(), book.getTitle(), author, genres);
     }
 
     private static <T> String collectionToString(Collection<? extends T> collection, Function<T, String> toString) {

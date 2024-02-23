@@ -2,6 +2,7 @@ package com.alexrezv.hw.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -33,7 +34,7 @@ public class Comment {
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @ManyToOne(targetEntity = Book.class)
+    @ManyToOne(targetEntity = Book.class, fetch = FetchType.LAZY)
     private Book book;
 
 }
