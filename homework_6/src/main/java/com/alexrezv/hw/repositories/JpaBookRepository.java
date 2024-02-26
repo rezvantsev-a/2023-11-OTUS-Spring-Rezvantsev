@@ -7,6 +7,7 @@ import org.hibernate.graph.GraphSemantic;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Repository
@@ -21,17 +22,10 @@ public class JpaBookRepository implements BookRepository {
 
     @Override
     public Optional<Book> findById(long id) {
-        var query = """
-                select b from Book b
-                where b.id = :id
-                """;
-        var result = em.createQuery(query, Book.class)
-                .setHint(GraphSemantic.FETCH.getJakartaHintName(), em.getEntityGraph(Book.ENTITY_GRAPH_AUTHOR))
-                .setParameter("id", id)
-                .getResultList().stream()
-                .findFirst();
+        var result = em.find(Book.class, id,
+                Map.of(GraphSemantic.FETCH.getJakartaHintName(), em.getEntityGraph(Book.ENTITY_GRAPH_AUTHOR)));
 
-        return result;
+        return Optional.ofNullable(result);
     }
 
     @Override
