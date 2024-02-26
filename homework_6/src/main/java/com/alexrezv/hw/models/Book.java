@@ -62,8 +62,8 @@ public class Book {
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @OneToMany(targetEntity = Comment.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name = "book_id")
+    @OneToMany(targetEntity = Comment.class, mappedBy = "book", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments;
 
 }
