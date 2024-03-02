@@ -60,6 +60,7 @@ class JpaCommentRepositoryTest {
         assertThat(comment2).isNotNull();
 
         repository.deleteById(2L);
+        em.flush();
         em.clear();
 
         comment2 = em.find(Comment.class, 2L);

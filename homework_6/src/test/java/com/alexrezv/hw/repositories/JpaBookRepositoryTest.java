@@ -62,6 +62,7 @@ class JpaBookRepositoryTest {
         assertThat(book3).isNotNull();
 
         repository.deleteById(3L);
+        em.flush();
         em.clear();
 
         book3 = em.find(Book.class, 3L);

@@ -48,7 +48,6 @@ public class JpaBookRepository implements BookRepository {
     public void deleteById(long id) {
         var book = em.find(Book.class, id);
         em.remove(book);
-        em.flush();
     }
 
 }
