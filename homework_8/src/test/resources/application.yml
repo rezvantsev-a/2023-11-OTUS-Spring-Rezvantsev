@@ -1,0 +1,19 @@
+spring:
+  data:
+    mongodb:
+      database: library
+      host: localhost
+      port: 27017
+  shell:
+    command:
+      version:
+        enabled: false # shell's version bean conflicts with flapdoodle's
+
+de:
+  flapdoodle:
+    mongodb:
+      embedded:
+        version: 7.0.4
+
+mongock:
+  enabled: false
