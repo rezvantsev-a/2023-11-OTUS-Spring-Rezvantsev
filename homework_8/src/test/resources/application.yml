@@ -1,9 +1,9 @@
 spring:
   data:
     mongodb:
-      database: library
+      database: library_test
       host: localhost
-      port: 27017
+      port: 7357
   shell:
     command:
       version:
