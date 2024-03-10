@@ -19,7 +19,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("Репозиторий CommentRepository должен ")
 @DataMongoTest
-//@Import(CommentRepository.class)
 class CommentRepositoryTest {
 
     @Autowired
