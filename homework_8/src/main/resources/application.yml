@@ -1,0 +1,26 @@
+spring:
+  data:
+    mongodb:
+      database: library
+      host: localhost
+      port: 27017
+  shell:
+    command:
+      version:
+        enabled: false # shell's version bean conflicts with flapdoodle's
+
+de:
+  flapdoodle:
+    mongodb:
+      embedded:
+        version: 7.0.4
+
+mongock:
+  #runner-type: "ApplicationRunner" # default
+  runner-type: "InitializingBean"
+  migrationScanPackage:
+    - com.alexrezv.hw.mongock.changelog
+  mongo-db:
+    write-concern:
+      journal: false
+    read-concern: local
