@@ -40,7 +40,7 @@ public class Book {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @ReadOnlyProperty
-    @DocumentReference(lookup = "{'book_id':?#{#self._id} }")
+    @DocumentReference(lookup = "{'book_id':?#{#self._id} }", lazy = true)
     private List<Comment> comments;
 
 }

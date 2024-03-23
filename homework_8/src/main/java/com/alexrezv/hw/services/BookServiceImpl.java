@@ -1,5 +1,7 @@
 package com.alexrezv.hw.services;
 
+import com.alexrezv.hw.converters.BookConverter;
+import com.alexrezv.hw.dto.BookDto;
 import com.alexrezv.hw.exceptions.EntityNotFoundException;
 import com.alexrezv.hw.models.Book;
 import com.alexrezv.hw.repositories.AuthorRepository;
@@ -26,16 +28,20 @@ public class BookServiceImpl implements BookService {
 
     private final BookRepository bookRepository;
 
+    private final BookConverter bookConverter;
+
     @Transactional(readOnly = true)
     @Override
-    public Optional<Book> findById(ObjectId id) {
-        return bookRepository.findById(id);
+    public Optional<BookDto> findById(ObjectId id) {
+        return bookRepository.findById(id)
+                .map(bookConverter::bookToDto);
     }
 
     @Transactional(readOnly = true)
     @Override
-    public List<Book> findAll() {
+    public List<BookDto> findAll() {
         return bookRepository.findAll().stream()
+                .map(bookConverter::bookToDto)
                 .toList();
     }
 

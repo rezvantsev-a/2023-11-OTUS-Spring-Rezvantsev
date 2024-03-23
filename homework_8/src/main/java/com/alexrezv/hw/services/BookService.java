@@ -1,5 +1,6 @@
 package com.alexrezv.hw.services;
 
+import com.alexrezv.hw.dto.BookDto;
 import com.alexrezv.hw.models.Book;
 import org.bson.types.ObjectId;
 
@@ -9,9 +10,9 @@ import java.util.Set;
 
 public interface BookService {
 
-    Optional<Book> findById(ObjectId id);
+    Optional<BookDto> findById(ObjectId id);
 
-    List<Book> findAll();
+    List<BookDto> findAll();
 
     Book insert(String title, ObjectId authorId, Set<ObjectId> genresIds);
 
