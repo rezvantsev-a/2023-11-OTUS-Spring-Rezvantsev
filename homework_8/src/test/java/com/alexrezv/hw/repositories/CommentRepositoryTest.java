@@ -52,6 +52,20 @@ class CommentRepositoryTest {
                 .allMatch(comment -> comment.getBookId().equals(book.getId()));
     }
 
+    @DisplayName("удалять комментарии по id книги")
+    @Test
+    void shouldDeleteCommentsByBookId() {
+        var book = mongoTemplate.findOne(new Query(Criteria.where("title").is("tBook")), Book.class);
+        var comments = mongoTemplate.find(new Query(Criteria.where("book_id").is(book.getId())), Comment.class);
+
+        assertThat(comments).hasSize(2);
+
+        repository.deleteByBookId(book.getId());
+
+        comments = mongoTemplate.find(new Query(Criteria.where("book_id").is(book.getId())), Comment.class);
+        assertThat(comments).isEmpty();
+    }
+
     @AfterEach
     void tearDown() {
         mongoTemplate.dropCollection(Comment.class);

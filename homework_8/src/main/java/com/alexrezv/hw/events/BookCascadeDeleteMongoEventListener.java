@@ -18,8 +18,8 @@ public class BookCascadeDeleteMongoEventListener extends AbstractMongoEventListe
     @Override
     public void onAfterDelete(AfterDeleteEvent<Object> event) {
         if (Objects.requireNonNull(event.getType()).isAssignableFrom(Book.class)) {
-            var comments = commentRepository.findByBookId(event.getDocument().getObjectId("_id"));
-            commentRepository.deleteAll(comments);
+            var bookId = event.getDocument().getObjectId("_id");
+            commentRepository.deleteByBookId(bookId);
         }
     }
 
