@@ -1,0 +1,34 @@
+spring:
+  datasource:
+    embedded-database-connection: h2
+    name: maindb
+    url: jdbc:h2:mem:maindb
+    hikari:
+      connection-init-sql: select 1 from dual
+
+  sql:
+    init:
+      mode: always
+      #data-locations: data.sql
+      #schema-locations: schema.sql
+
+  jpa:
+    open-in-view: false
+    generate-ddl: false
+
+    hibernate:
+      ddl-auto: none
+
+    show-sql: on
+    properties:
+      hibernate:
+        format_sql: true
+
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+
+logging:
+  level:
+    ROOT: warn
