@@ -1,0 +1,63 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- https://bootswatch.com/flatly/ -->
+    <link rel="stylesheet"
+          href="../static/assets/css/bootstrap.min.css"
+          th:href="@{../../assets/css/bootstrap.min.css}"
+    >
+    <script type='text/javascript'
+            src='../static/assets/js/bootstrap.bundle.min.js'
+            th:src="@{../../assets/js/bootstrap.bundle.min.js}"
+    ></script>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <meta charset="UTF-8">
+    <title>Create a book</title>
+</head>
+
+<body>
+<div>
+    <form id="book-edit-form" action="book_edit.html" th:action="@{/books/new}" th:method="post" th:object="${book}">
+        <fieldset>
+            <legend>Edit this book</legend>
+            <div>
+                <label for="inputTitle" class="form-label mt-4">Title</label>
+                <input required type="text" class="form-control" id="inputTitle" placeholder="Enter title"
+                       th:field="*{title}">
+            </div>
+            <div>
+                <label for="selectAuthor" class="form-label mt-4">Author</label>
+                <select required class="form-select" id="selectAuthor" th:field="*{authorId}">
+                    <option th:each="author : ${authors}" th:text="${author.fullName}" th:value="${author.id}">John
+                        Doe
+                    </option>
+                </select>
+            </div>
+            <div>
+                <label for="selectGenres" class="form-label mt-4">Genres</label>
+                <select required multiple class="form-select" id="selectGenres" aria-describedby="genresHelp"
+                        th:field="*{genreIds}">
+                    <option th:each="genre : ${genres}" th:text="${genre.name}" th:value="${genre.id}">Drama</option>
+                </select>
+                <small id="genresHelp" class="form-text text-muted">You can select multiple by dragging your cursor or
+                    holding CTRL and clicking.</small>
+            </div>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+            <a href="books.html" th:href="@{/books}">
+                <button type="button" class="btn btn-secondary">Cancel</button>
+            </a>
+        </fieldset>
+    </form>
+</div>
+</body>
+
+</html>

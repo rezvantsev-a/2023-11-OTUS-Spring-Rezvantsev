@@ -1,0 +1,104 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- https://bootswatch.com/flatly/ -->
+    <link rel="stylesheet"
+          href="../static/assets/css/bootstrap.min.css"
+          th:href="@{./assets/css/bootstrap.min.css}"
+    >
+    <script type='text/javascript'
+            src='../static/assets/js/bootstrap.bundle.min.js'
+            th:src="@{./assets/js/bootstrap.bundle.min.js}"
+    ></script>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <meta charset="UTF-8">
+    <title>Books</title>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg bg-light" data-bs-theme="light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Library</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03"
+                aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor03">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html" th:href="@{/}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="authors.html" th:href="@{/authors}">Authors</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                       aria-haspopup="true" aria-expanded="false">Books
+                        <span class="visually-hidden">(current)</span>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="books.html" th:href="@{/books}">List</a>
+                        <a class="dropdown-item" href="book_create.html" th:href="@{/books/new}">Create new</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="genres.html" th:href="@{/genres}">Genres</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Title</th>
+            <th scope="col">Author</th>
+            <th scope="col">Genres</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="table-light" th:each="book : ${books}">
+            <th scope="row" th:text="${book.id}">1</th>
+            <td th:text="${book.title}">How to Java</td>
+            <td th:text="${book.author.fullName}">John Doe</td>
+            <td>
+                <ul th:each="genre : ${book.genres}">
+                    <li th:text="${genre.name}">Drama</li>
+                </ul>
+            </td>
+            <td>
+            <td>
+                <a class="btn btn-info" href="book_edit.html" th:href="@{/books/update/{id}(id=${book.id})}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-pencil" viewBox="0 0 16 16">
+                        <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
+                    </svg>
+                </a>
+            </td>
+            <td>
+                <a class="btn btn-danger" th:href="@{/books/delete/{id}(id=${book.id})}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-trash" viewBox="0 0 16 16">
+                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                    </svg>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+
+</html>
